@@ -14,8 +14,8 @@ set(mars_HOMEPAGE "http://www.marsshooter.org")
 set(mars_EXENAME "marsshooter")
 set(mars_PACKAGENAME "mars")
  
-# We require at least version 2.8.0
-cmake_minimum_required(VERSION 2.8.0)
+# We require at least version 3.7.2
+cmake_minimum_required(VERSION 3.7.2)
 
 #####################################################################
 # Installation directories
@@ -33,10 +33,7 @@ find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
 
 # find the sfml2 headers and library
-include(FindPkgConfig)
-pkg_check_modules(SFML REQUIRED sfml-audio>=2.0 sfml-graphics>=2.0
-			sfml-window>=2.0 sfml-system>=2.0)
-include_directories(${SFML_INCLUDE_DIRS})
+find_package(SFML REQUIRED audio graphics)
 
 # Foundation library needed for apple
 if(APPLE)
@@ -49,10 +46,10 @@ endif(APPLE)
 # endif(UNIX)
 
 # tag library needed for reading tags of music files
-	find_library(TAG_LIBRARY tag)
+find_library(TAG_LIBRARY tag)
 
 # Fribidi library needed for bi-directional texts
-	find_library(FRIBIDI_LIBRARY fribidi)
+find_library(FRIBIDI_LIBRARY fribidi)
 
 # set the executable output path
 if(APPLE)
